@@ -8,7 +8,7 @@ The site allows:
 1) Upload music files and send them to API, where they are trimmed to 10-second fragment, stored in BLOB-storage, and write song information to database;
 2) Search added songs, listen to them, and report any mistake in description.
 
-Design Reference: [design](https://app.moqups.com/LTb5zOxHHLW3tRfnELOA6ExzimJVOVAV/view/page/ae14d583d)
+Design Reference: [design](https://app.moqups.com/LTb5zOxHHLW3tRfnELOA6ExzimJVOVAV/view/page/ac37097b9)
 
 ## Minimum set for the module
 
