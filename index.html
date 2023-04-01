@@ -11,11 +11,56 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   >
-  <title>Js module</title>
+  <title>Music list</title>
+  <link
+    media="all"
+    rel="stylesheet"
+    href="./src/styles/main.css"
+  >
 </head>
 
 <body>
-
+  <header class="header"></header>
+  <main>
+    <img
+      src="./src/images/loader.gif"
+      alt="loader"
+      id="music-list-loader"
+    >
+    <span id="music-list-warning">Sorry, something gone wrong. Please, note administrators about this.</span>
+    <div class="list-header">
+      <span class="list-header-item">Author</span>
+      <span class="list-header-item">Title</span>
+      <span class="list-header-item">Genre</span>
+    </div>
+    <div class="music-list">
+    </div>
+    <div class="pagination">
+      <div class="pagination-pages">
+        <span class="pagination-page">Page</span>
+      </div>
+      <div class="pagination-page-sizes">
+        <span class="pagination-per-page">Per page</span>
+        <select
+          class="page-size-dropdown"
+          onchange="changePageSize()"
+        >
+          <option
+            value="10"
+            selected
+          >10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+    </div>
+  </main>
+  <script src="./src/header.js"></script>
+  <script src="./src/musicList.js"></script>
+  <script>
+    document.getElementById('navigation-music-list').className = 'navigation-item-active';
+    getMusicList();
+  </script>
 </body>
 
 </html>
