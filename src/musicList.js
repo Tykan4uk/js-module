@@ -42,18 +42,15 @@ const getMusicList = async (page = 1) => {
   }
 }
 
-const changePageSize = () => {
-  const currentPage = +document.querySelector('.pagination-page-active').innerText;
-
-  getPage(currentPage);
-}
-
 const getPage = async (page) => {
   const pageSize = document.querySelector('.page-size-dropdown')?.value ?? 10;
   document.querySelector('.music-list').innerHTML = '';
-  document.querySelector('.pagination-pages').innerHTML = '<span class="pagination-page">Page</span>';
+  document.querySelector('#music-list-inner-loader').style.display = 'flex';
 
   const response = await tracksService.getListByPage(page, pageSize);
+
+  document.querySelector('#music-list-inner-loader').style.display = 'none';
+  document.querySelector('.pagination-pages').innerHTML = '<span class="pagination-page">Page</span>';
 
   if (response.total > 0) {
     let counter = (page - 1) * pageSize + 1;

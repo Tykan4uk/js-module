@@ -1,4 +1,5 @@
-#music-list-loader {
+#music-list-loader,
+#music-list-inner-loader {
   width: 50px;
   align-self: center;
   display: none;

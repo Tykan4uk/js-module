@@ -33,6 +33,11 @@
       <span class="list-header-item">Title</span>
       <span class="list-header-item">Genre</span>
     </div>
+    <img
+      src="./src/images/loader.gif"
+      alt="loader"
+      id="music-list-inner-loader"
+    >
     <div class="music-list">
     </div>
     <div class="pagination">
@@ -43,7 +48,7 @@
         <span class="pagination-per-page">Per page</span>
         <select
           class="page-size-dropdown"
-          onchange="changePageSize()"
+          onchange="getPage(1)"
         >
           <option
             value="10"
