@@ -46,10 +46,7 @@
       </div>
       <div class="pagination-page-sizes">
         <span class="pagination-per-page">Per page</span>
-        <select
-          class="page-size-dropdown"
-          onchange="getPage(1)"
-        >
+        <select class="page-size-dropdown">
           <option
             value="10"
             selected
@@ -60,11 +57,13 @@
       </div>
     </div>
   </main>
-  <script src="./src/header.js"></script>
-  <script src="./src/musicList.js"></script>
+  <script src="./src/header.ts"></script>
+  <script
+    type="module"
+    src="./src/musicList.ts"
+  ></script>
   <script>
     document.getElementById('navigation-music-list').className = 'navigation-item-active';
-    getMusicList();
   </script>
 </body>
 

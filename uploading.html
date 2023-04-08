@@ -26,9 +26,6 @@
       will be processed correctly. Limit - 10 files by one sending.</div>
     <label
       class="drop_zone"
-      ondrop="dropHandler(event);"
-      ondragover="dragOverHandler(event);"
-      onchange="clickHandler(event)"
       for="drop_zone_input"
     >
       <input
@@ -46,10 +43,7 @@
     </label>
     <div class="upload-list">
     </div>
-    <div
-      class="send-button"
-      onclick="sendFiles()"
-    >Send on process</div>
+    <div class="send-button">Send on process</div>
     <div class="send-result">Sended</div>
     <img
       src="./src/images/loader.gif"
@@ -57,11 +51,13 @@
       id="send-loader"
     >
   </main>
-  <script src="./src/header.js"></script>
-  <script src="./src/uploading.js"></script>
+  <script src="./src/header.ts"></script>
+  <script
+    type="module"
+    src="./src/uploading.ts"
+  ></script>
   <script>
     document.getElementById('navigation-uploading').className = 'navigation-item-active';
-    dropDownService.getGenres();
   </script>
 </body>
 

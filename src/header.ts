@@ -25,4 +25,4 @@ const header = `
   </div>
 `;
 
-document.querySelector(".header").innerHTML = header;
+document.querySelector(".header")!.innerHTML = header;

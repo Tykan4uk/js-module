@@ -1,30 +1,22 @@
-class tracksService {
-  static getListByPage = async (page, pageSize) => {
-    const url = new URL('https://musicality-api.azurewebsites.net/Track/GetByPage');
-    url.searchParams.set('page', page);
-    url.searchParams.set('pageSize', pageSize);
-
-    const response = await fetch(url).catch(() => { });
-
-    return (response?.ok ?? false) ? await response.json() : { total: 0 };
-  }
-}
+import { createElement } from "./helpers/htmlHelpers";
+import { Track } from "./models/Track";
+import { tracksService } from "./services/trackService";
 
 const getMusicList = async (page = 1) => {
-  const pageSize = document.querySelector('.page-size-dropdown')?.value ?? 10;
+  const pageSize = +(document.querySelector<HTMLSelectElement>('.page-size-dropdown')!.value ?? '10');
 
-  document.getElementById('music-list-loader').style.display = 'block';
+  document.getElementById('music-list-loader')!.style.display = 'block';
 
-  const response = await tracksService.getListByPage(page, pageSize);
+  const response = await tracksService.getListByPage(`${page}`, `${pageSize}`);
 
-  document.getElementById('music-list-loader').style.display = 'none';
+  document.getElementById('music-list-loader')!.style.display = 'none';
 
   if (response.total > 0) {
     let counter = (page - 1) * pageSize + 1;
 
-    document.querySelector('.list-header').style.display = 'flex';
+    document.querySelector<HTMLElement>('.list-header')!.style.display = 'flex';
 
-    document.querySelector('.music-list').style.display = 'flex';
+    document.querySelector<HTMLElement>('.music-list')!.style.display = 'flex';
 
     response.tracks.forEach(track => {
       addListElement(track, counter);
@@ -34,23 +26,23 @@ const getMusicList = async (page = 1) => {
 
     const maxPage = Math.ceil(response.total / pageSize);
 
-    document.querySelector('.pagination').style.display = 'flex';
+    document.querySelector<HTMLElement>('.pagination')!.style.display = 'flex';
 
     addPagination(page, maxPage);
   } else {
-    document.getElementById('music-list-warning').style.display = 'flex';
+    document.getElementById('music-list-warning')!.style.display = 'flex';
   }
 }
 
-const getPage = async (page) => {
-  const pageSize = document.querySelector('.page-size-dropdown')?.value ?? 10;
-  document.querySelector('.music-list').innerHTML = '';
-  document.querySelector('#music-list-inner-loader').style.display = 'flex';
+const getPage = async (page: number) => {
+  const pageSize = +(document.querySelector<HTMLSelectElement>('.page-size-dropdown')!.value ?? '10');
+  document.querySelector('.music-list')!.innerHTML = '';
+  document.querySelector<HTMLElement>('#music-list-inner-loader')!.style.display = 'flex';
 
-  const response = await tracksService.getListByPage(page, pageSize);
+  const response = await tracksService.getListByPage(`${page}`, `${pageSize}`);
 
-  document.querySelector('#music-list-inner-loader').style.display = 'none';
-  document.querySelector('.pagination-pages').innerHTML = '<span class="pagination-page">Page</span>';
+  document.querySelector<HTMLElement>('#music-list-inner-loader')!.style.display = 'none';
+  document.querySelector('.pagination-pages')!.innerHTML = '<span class="pagination-page">Page</span>';
 
   if (response.total > 0) {
     let counter = (page - 1) * pageSize + 1;
@@ -65,21 +57,11 @@ const getPage = async (page) => {
 
     addPagination(page, maxPage);
   } else {
-    document.getElementById('music-list-warning').style.display = 'flex';
+    document.getElementById('music-list-warning')!.style.display = 'flex';
   }
 }
 
-const createElement = ({ tag, className, innerText, onclick }) => {
-  const element = document.createElement(tag);
-  element.className = className;
-  element.innerText = innerText ?? '';
-  if (onclick !== undefined)
-    element.setAttribute("onclick", onclick);
-
-  return element;
-}
-
-const addListElement = (track, number) => {
+const addListElement = (track: Track, number: number) => {
   const listItem = createElement({
     tag: 'div',
     className: 'music-list-item'
@@ -130,10 +112,10 @@ const addListElement = (track, number) => {
 
   listItem.append(numberSpan, authorSpan, titleSpan, genreSpan, playButton, checkButton);
 
-  document.querySelector('.music-list').append(listItem);
+  document.querySelector('.music-list')!.append(listItem);
 }
 
-const addPagination = (page, maxPage) => {
+const addPagination = (page: number, maxPage: number) => {
   if (page !== 1) {
     addBeforeArrows(page)
   }
@@ -176,51 +158,51 @@ const addPagination = (page, maxPage) => {
   }
 }
 
-const addPaginationElement = (number, isActive = false) => {
+const addPaginationElement = (number: number, isActive = false) => {
   const element = createElement({
     tag: 'span',
     className: isActive ? 'pagination-page-active' : 'pagination-page-button',
-    innerText: number,
-    onclick: isActive ? undefined : `getPage(${number})`
+    innerText: `${number}`,
+    onclick: isActive ? undefined : () => { getPage(number); }
   });
 
-  document.querySelector('.pagination-pages').append(element);
+  document.querySelector('.pagination-pages')!.append(element);
 }
 
-const addBeforeArrows = (currentPage) => {
+const addBeforeArrows = (currentPage: number) => {
   const firstPage = createElement({
     tag: 'span',
     className: 'pagination-page-first',
     innerText: '«',
-    onclick: `getPage(1)`
+    onclick: () => { getPage(1); }
   });
 
   const prevPage = createElement({
     tag: 'span',
     className: 'pagination-page-prev',
     innerText: '‹',
-    onclick: `getPage(${currentPage - 1})`
+    onclick: () => { getPage(currentPage - 1); }
   });
 
-  document.querySelector('.pagination-pages').append(firstPage, prevPage);
+  document.querySelector('.pagination-pages')!.append(firstPage, prevPage);
 }
 
-const addAfterArrows = (currentPage, maxPage) => {
+const addAfterArrows = (currentPage: number, maxPage: number) => {
   const nextPage = createElement({
     tag: 'span',
     className: 'pagination-page-next',
     innerText: '›',
-    onclick: `getPage(${currentPage + 1})`
+    onclick: () => { getPage(currentPage + 1); }
   });
 
   const lastPage = createElement({
     tag: 'span',
     className: 'pagination-page-last',
     innerText: '»',
-    onclick: `getPage(${maxPage})`
+    onclick: () => { getPage(maxPage); }
   });
 
-  document.querySelector('.pagination-pages').append(nextPage, lastPage);
+  document.querySelector('.pagination-pages')!.append(nextPage, lastPage);
 }
 
 const addPaginationDotes = () => {
@@ -230,5 +212,8 @@ const addPaginationDotes = () => {
     innerText: '...'
   });
 
-  document.querySelector('.pagination-pages').append(paginationDotes);
+  document.querySelector('.pagination-pages')!.append(paginationDotes);
 }
+
+getMusicList();
+document.querySelector('.page-size-dropdown')!.addEventListener('change', () => getPage(1));
