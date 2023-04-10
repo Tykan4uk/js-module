@@ -217,3 +217,4 @@ const addPaginationDotes = () => {
 
 getMusicList();
 document.querySelector('.page-size-dropdown')!.addEventListener('change', () => getPage(1));
+document.getElementById('navigation-music-list')!.className = 'navigation-item-active';

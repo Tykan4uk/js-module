@@ -158,3 +158,4 @@ document.querySelector('.drop_zone')!.addEventListener('dragover', dragOverHandl
 document.querySelector('.drop_zone')!.addEventListener('change', clickHandler);
 document.querySelector('.send-button')!.addEventListener('click', sendFiles);
 dropDownService.getGenres();
+document.getElementById('navigation-uploading')!.className = 'navigation-item-active';
