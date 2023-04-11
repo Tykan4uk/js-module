@@ -1,0 +1,21 @@
+@import url("../styles/header.css");
+@import url("../styles/musicList.css");
+@import url("../styles/uploading.css");
+
+body {
+  margin: 0px;
+  font-family: 'Helvetica';
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+main {
+  margin: 40px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
